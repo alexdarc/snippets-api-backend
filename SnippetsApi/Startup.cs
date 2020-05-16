@@ -28,6 +28,9 @@ namespace SnippetsApi
             IServiceCollection services)
         {
             services.AddControllers();
+
+            IocConfig.RegisterDependencies(
+                services: services);
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

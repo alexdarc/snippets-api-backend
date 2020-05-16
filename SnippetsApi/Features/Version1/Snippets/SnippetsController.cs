@@ -18,7 +18,7 @@ namespace SnippetsApi.Features.Version1.Snippets
 
         [HttpGet]
         public ActionResult<List<SnippetModel>> Get(
-            GetRequestModel requestModel)
+            [FromQuery] GetRequestModel requestModel)
         {
             return this.getActionModelQueryHandler
                 .Handle(
