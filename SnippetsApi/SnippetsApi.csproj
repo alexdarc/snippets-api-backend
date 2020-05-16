@@ -8,5 +8,13 @@
       <Folder Include="Controllers" />
     </ItemGroup>
 
+    <ItemGroup>
+      <ProjectReference Include="..\Contracts\Contracts.csproj" />
+    </ItemGroup>
+
+    <ItemGroup>
+      <PackageReference Include="Optional" Version="4.0.0" />
+    </ItemGroup>
+
 
 </Project>
