@@ -10,40 +10,59 @@ namespace Infrastructure.Mappers
     {
         private readonly IMongoCollection<Snippet> snippetsCollection;
 
+        public SnippetMapper(
+            MongoCollections mongoCollections)
+        {
+            this.snippetsCollection = mongoCollections.SnippetsCollection;
+        }
+
         public Snippet Get(
             string id)
         {
-            throw new System.NotImplementedException();
+            return this.snippetsCollection
+                .Find(filter: document => document.Id == id)
+                .FirstOrDefault();
         }
 
         public IEnumerable<Snippet> GetMany(
             int limit)
         {
-            throw new System.NotImplementedException();
+            return this.snippetsCollection
+                .Find(filter: document => true)
+                .Limit(limit: limit)
+                .ToEnumerable();
         }
 
         public void Insert(
             Snippet snippet)
         {
-            throw new System.NotImplementedException();
+            this.snippetsCollection
+                .InsertOne(document: snippet);
         }
 
         public void Save(
             Snippet snippet)
         {
-            throw new System.NotImplementedException();
+            this.snippetsCollection
+                .ReplaceOne(
+                    filter: document => document.Id == snippet.Id,
+                    replacement: snippet);
         }
 
         public void Remove(
             string id)
         {
-            throw new System.NotImplementedException();
+            this.snippetsCollection
+                .DeleteOne(
+                    filter: document => document.Id == id);
         }
 
         public void Remove(
             Snippet snippet)
         {
-            throw new System.NotImplementedException();
+            this.snippetsCollection
+                .DeleteOne(
+                    filter: document => document.Id == snippet.Id);
         }
     }
 }
