@@ -18,6 +18,7 @@ namespace SnippetsApi.Features.Version1.Snippets.Adapters
         public Option<CreateActionModelQuery.Result> Handle(
             CreateActionModelQuery query)
         {
+            // TODO: Remove, cuz it's already validate by default
             if (!query.ModelState.IsValid)
             {
                 return Option.None<CreateActionModelQuery.Result>();

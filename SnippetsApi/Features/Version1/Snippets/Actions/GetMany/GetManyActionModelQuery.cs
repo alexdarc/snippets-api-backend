@@ -5,9 +5,9 @@ namespace SnippetsApi.Features.Version1.Snippets.Actions.Get
     using Optional;
     using SnippetsApi.Features.Version1.Snippets.Models;
 
-    public class GetActionModelQuery
+    public class GetManyActionModelQuery
     {
-        public GetActionModelQuery(
+        public GetManyActionModelQuery(
             ModelStateDictionary modelState,
             int limit,
             int offset)
@@ -20,7 +20,7 @@ namespace SnippetsApi.Features.Version1.Snippets.Actions.Get
         public interface IHandler
         {
             Option<Result> Handle(
-                GetActionModelQuery query);
+                GetManyActionModelQuery query);
         }
 
         public ModelStateDictionary ModelState { get; }

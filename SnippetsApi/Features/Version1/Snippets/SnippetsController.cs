@@ -9,28 +9,28 @@ namespace SnippetsApi.Features.Version1.Snippets
     public class SnippetsController
         : ApiVersion1Controller
     {
-        private readonly GetActionModelQuery.IHandler getActionModelQueryHandler;
+        private readonly GetManyActionModelQuery.IHandler getManyActionModelQueryHandler;
 
         private readonly CreateActionModelQuery.IHandler createActionModelQueryHandler;
 
         public SnippetsController(
-            GetActionModelQuery.IHandler getActionModelQueryHandler,
+            GetManyActionModelQuery.IHandler getManyActionModelQueryHandler,
             CreateActionModelQuery.IHandler createActionModelQueryHandler)
         {
-            this.getActionModelQueryHandler = getActionModelQueryHandler;
+            this.getManyActionModelQueryHandler = getManyActionModelQueryHandler;
             this.createActionModelQueryHandler = createActionModelQueryHandler;
         }
 
         [HttpGet]
-        public ActionResult<List<SnippetModel>> Get(
-            [FromQuery] GetRequestModel requestModel)
+        public ActionResult<List<SnippetModel>> GetMany(
+            [FromQuery] GetManyRequestModel manyRequestModel)
         {
-            return this.getActionModelQueryHandler
+            return this.getManyActionModelQueryHandler
                 .Handle(
-                    query: new GetActionModelQuery(
+                    query: new GetManyActionModelQuery(
                         modelState: this.ModelState,
-                        limit: requestModel.Limit,
-                        offset: requestModel.Offset))
+                        limit: manyRequestModel.Limit,
+                        offset: manyRequestModel.Offset))
                 .Match<ActionResult<List<SnippetModel>>>(
                     some: resultModel => new ObjectResult(
                         value: resultModel.SnippetList),

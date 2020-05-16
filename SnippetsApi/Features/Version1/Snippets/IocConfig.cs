@@ -13,8 +13,8 @@ namespace SnippetsApi.Features.Version1.Snippets
             IServiceCollection services,
             ISnippetMapper snippetMapper)
         {
-            services.AddSingleton<GetActionModelQuery.IHandler>(
-                implementationInstance: new GetActionModelQueryHandler(
+            services.AddSingleton<GetManyActionModelQuery.IHandler>(
+                implementationInstance: new GetManyActionModelQueryHandler(
                     snippetsQueryHandler: new SnippetsQueryHandler(
                         snippetMapper: snippetMapper)));
 

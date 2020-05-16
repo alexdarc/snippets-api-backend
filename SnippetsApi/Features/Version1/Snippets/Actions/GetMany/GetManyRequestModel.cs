@@ -1,6 +1,6 @@
 namespace SnippetsApi.Features.Version1.Snippets.Actions.Get
 {
-    public class GetRequestModel
+    public class GetManyRequestModel
     {
         public int Limit { get; set; } = 50;
 
