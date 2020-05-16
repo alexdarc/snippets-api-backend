@@ -21,7 +21,9 @@ namespace SnippetsApi.Features.Version1.Snippets.Infrastructure
             SnippetsQuery query)
         {
             return this.snippetMapper
-                .GetMany(limit: query.Limit)
+                .GetMany(
+                    limit: query.Limit,
+                    skip: query.Offset)
                 .Select(selector: x => new SnippetModel(
                     id: x.Id.ToString(),
                     description: x.Description,

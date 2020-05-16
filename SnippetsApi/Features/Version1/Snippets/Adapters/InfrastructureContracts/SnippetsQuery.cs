@@ -6,9 +6,11 @@ namespace SnippetsApi.Features.Version1.Snippets.Adapters.InfrastructureContract
     public class SnippetsQuery
     {
         public SnippetsQuery(
-            int limit)
+            int limit,
+            int offset)
         {
             this.Limit = limit;
+            this.Offset = offset;
         }
 
         public interface IHandler
@@ -18,5 +20,7 @@ namespace SnippetsApi.Features.Version1.Snippets.Adapters.InfrastructureContract
         }
 
         public int Limit { get; }
+
+        public int Offset { get; }
     }
 }

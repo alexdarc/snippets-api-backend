@@ -9,7 +9,8 @@ namespace Contracts.Services
             string id);
 
         IEnumerable<Snippet> GetMany(
-            int limit);
+            int limit,
+            int skip);
 
         void Insert(
             Snippet snippet);

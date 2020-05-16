@@ -29,7 +29,8 @@ namespace SnippetsApi.Features.Version1.Snippets.Adapters
                     snippetList: this.snippetsQueryHandler
                         .Handle(
                             query: new SnippetsQuery(
-                                limit: query.Limit))));
+                                limit: query.Limit,
+                                offset: query.Offset))));
         }
     }
 }

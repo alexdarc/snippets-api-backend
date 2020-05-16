@@ -25,10 +25,12 @@ namespace Infrastructure.Mappers
         }
 
         public IEnumerable<Snippet> GetMany(
-            int limit)
+            int limit,
+            int skip)
         {
             return this.snippetsCollection
                 .Find(filter: document => true)
+                .Skip(skip: skip)
                 .Limit(limit: limit)
                 .ToEnumerable();
         }
