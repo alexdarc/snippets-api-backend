@@ -20,7 +20,7 @@ namespace Infrastructure.Mappers
             string id)
         {
             return this.snippetsCollection
-                .Find(filter: document => document.Id == id)
+                .Find(filter: document => document.Id.ToString() == id)
                 .FirstOrDefault();
         }
 
@@ -54,7 +54,7 @@ namespace Infrastructure.Mappers
         {
             this.snippetsCollection
                 .DeleteOne(
-                    filter: document => document.Id == id);
+                    filter: document => document.Id.ToString() == id);
         }
 
         public void Remove(

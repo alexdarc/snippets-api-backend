@@ -23,7 +23,7 @@ namespace SnippetsApi.Features.Version1.Snippets.Infrastructure
             return this.snippetMapper
                 .GetMany(limit: query.Limit)
                 .Select(selector: x => new SnippetModel(
-                    id: x.Id,
+                    id: x.Id.ToString(),
                     description: x.Description,
                     content: x.Content));
         }

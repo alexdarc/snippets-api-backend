@@ -1,24 +1,25 @@
 namespace Contracts.Models
 {
     using System;
+    using MongoDB.Bson;
+    using MongoDB.Bson.Serialization.Attributes;
 
     public class Snippet
     {
         public Snippet(
-            string id,
             string description,
             string content,
             DateTime createdDate,
             DateTime updatedDate)
         {
-            this.Id = id;
             this.Description = description;
             this.Content = content;
             this.CreatedDate = createdDate;
             this.UpdatedDate = updatedDate;
         }
 
-        public string Id { get; set; }
+        [BsonId]
+        public ObjectId Id { get; set; }
 
         public string Description { get; set; }
 
