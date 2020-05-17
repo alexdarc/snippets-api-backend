@@ -1,11 +1,14 @@
 namespace SnippetsApi.Features.Version1.Snippets
 {
     using System.Collections.Generic;
+    using System.ComponentModel.DataAnnotations;
     using System.Linq;
+    using Common.Mongo;
     using Microsoft.AspNetCore.Mvc;
     using SnippetsApi.Features.Version1.Snippets.Actions.Create;
     using SnippetsApi.Features.Version1.Snippets.Actions.Get;
     using SnippetsApi.Features.Version1.Snippets.Actions.GetSingle;
+    using SnippetsApi.Features.Version1.Snippets.Actions.Update;
     using SnippetsApi.Features.Version1.Snippets.Models;
 
     public class SnippetsController
@@ -17,14 +20,18 @@ namespace SnippetsApi.Features.Version1.Snippets
 
         private readonly GetSingleActionModelQuery.IHandler getSingleActionModelQueryHandler;
 
+        private readonly UpdateActionModelQuery.IHandler updateActionModelQueryHandler;
+
         public SnippetsController(
             GetManyActionModelQuery.IHandler getManyActionModelQueryHandler,
             CreateActionModelQuery.IHandler createActionModelQueryHandler,
-            GetSingleActionModelQuery.IHandler getSingleActionModelQueryHandler)
+            GetSingleActionModelQuery.IHandler getSingleActionModelQueryHandler,
+            UpdateActionModelQuery.IHandler updateActionModelQueryHandler)
         {
             this.getManyActionModelQueryHandler = getManyActionModelQueryHandler;
             this.createActionModelQueryHandler = createActionModelQueryHandler;
             this.getSingleActionModelQueryHandler = getSingleActionModelQueryHandler;
+            this.updateActionModelQueryHandler = updateActionModelQueryHandler;
         }
 
         [HttpGet]
@@ -69,6 +76,23 @@ namespace SnippetsApi.Features.Version1.Snippets
                 .Match<ActionResult<SnippetModel>>(
                     some: resultModel => resultModel.SnippetModel,
                     none: () => new BadRequestResult());
+        }
+
+
+        [HttpPut(template: "{id:length(24)}")]
+        public ActionResult<SnippetModel> Update(
+            [FromRoute] [ObjectId] [Required] string Id,
+            [FromQuery] UpdateRequestModel requestModel)
+        {
+            return this.updateActionModelQueryHandler
+                .Handle(
+                    query: new UpdateActionModelQuery(
+                        snippetId: Id,
+                        description: requestModel.Description,
+                        content: requestModel.Content))
+                .Match<ActionResult<SnippetModel>>(
+                    some: resultModel => resultModel.SnippetModel,
+                    none: () => new NotFoundResult());
         }
     }
 }
