@@ -1,6 +1,8 @@
 namespace Infrastructure.Mappers
 {
     using System.Collections.Generic;
+    using Common.Contracts;
+    using Common.Mongo;
     using Contracts.Models;
     using Contracts.Services;
     using MongoDB.Bson;
@@ -43,13 +45,14 @@ namespace Infrastructure.Mappers
                 .InsertOne(document: snippet);
         }
 
-        public void Save(
-            Snippet snippet)
+        public void Update(
+            string id,
+            UpdateInstructions<Snippet> updateInstructions)
         {
             this.snippetsCollection
-                .ReplaceOne(
-                    filter: ById(snippet: snippet),
-                    replacement: snippet);
+                .UpdateOne(
+                    filter: ById(id: id),
+                    update: updateInstructions.ToMongoUpdate());
         }
 
         public void Remove(

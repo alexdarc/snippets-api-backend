@@ -1,6 +1,7 @@
 namespace Contracts.Services
 {
     using System.Collections.Generic;
+    using Common.Contracts;
     using Contracts.Models;
 
     public interface ISnippetMapper
@@ -15,8 +16,9 @@ namespace Contracts.Services
         void Insert(
             Snippet snippet);
 
-        void Save(
-            Snippet snippet);
+        void Update(
+            string id,
+            UpdateInstructions<Snippet> updateInstructions);
 
         void Remove(
             string id);
