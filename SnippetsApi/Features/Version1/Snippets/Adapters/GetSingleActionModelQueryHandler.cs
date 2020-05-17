@@ -22,7 +22,7 @@ namespace SnippetsApi.Features.Version1.Snippets.Adapters
             var snippet = this.snippetQueryHandler
                 .Handle(
                     query: new SnippetQuery(
-                        snippetId: query.Id));
+                        snippetId: query.SnippetId));
 
             if (snippet == null)
             {

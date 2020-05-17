@@ -3,6 +3,7 @@ namespace SnippetsApi.Features.Version1.Snippets
     using Contracts.Services;
     using Microsoft.Extensions.DependencyInjection;
     using SnippetsApi.Features.Version1.Snippets.Actions.Create;
+    using SnippetsApi.Features.Version1.Snippets.Actions.Delete;
     using SnippetsApi.Features.Version1.Snippets.Actions.Get;
     using SnippetsApi.Features.Version1.Snippets.Actions.GetSingle;
     using SnippetsApi.Features.Version1.Snippets.Actions.Update;
@@ -36,6 +37,12 @@ namespace SnippetsApi.Features.Version1.Snippets
                 implementationInstance: new UpdateActionModelQueryHandler(
                     snippetQueryHandler: snippetQueryHandler,
                     updateSnippetCommandHandler: new UpdateSnippetCommandHandler(
+                        snippetMapper: snippetMapper)));
+
+            services.AddSingleton<DeleteActionModelQuery.IHandler>(
+                implementationInstance: new DeleteActionModelQueryHandler(
+                    snippetQueryHandler: snippetQueryHandler,
+                    deleteSnippetCommandHandler: new DeleteSnippetCommandHandler(
                         snippetMapper: snippetMapper)));
         }
     }

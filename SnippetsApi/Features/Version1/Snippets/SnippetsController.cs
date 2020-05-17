@@ -6,6 +6,7 @@ namespace SnippetsApi.Features.Version1.Snippets
     using Common.Mongo;
     using Microsoft.AspNetCore.Mvc;
     using SnippetsApi.Features.Version1.Snippets.Actions.Create;
+    using SnippetsApi.Features.Version1.Snippets.Actions.Delete;
     using SnippetsApi.Features.Version1.Snippets.Actions.Get;
     using SnippetsApi.Features.Version1.Snippets.Actions.GetSingle;
     using SnippetsApi.Features.Version1.Snippets.Actions.Update;
@@ -22,16 +23,20 @@ namespace SnippetsApi.Features.Version1.Snippets
 
         private readonly UpdateActionModelQuery.IHandler updateActionModelQueryHandler;
 
+        private readonly DeleteActionModelQuery.IHandler deleteActionModelQueryHandler;
+
         public SnippetsController(
             GetManyActionModelQuery.IHandler getManyActionModelQueryHandler,
             CreateActionModelQuery.IHandler createActionModelQueryHandler,
             GetSingleActionModelQuery.IHandler getSingleActionModelQueryHandler,
-            UpdateActionModelQuery.IHandler updateActionModelQueryHandler)
+            UpdateActionModelQuery.IHandler updateActionModelQueryHandler,
+            DeleteActionModelQuery.IHandler deleteActionModelQueryHandler)
         {
             this.getManyActionModelQueryHandler = getManyActionModelQueryHandler;
             this.createActionModelQueryHandler = createActionModelQueryHandler;
             this.getSingleActionModelQueryHandler = getSingleActionModelQueryHandler;
             this.updateActionModelQueryHandler = updateActionModelQueryHandler;
+            this.deleteActionModelQueryHandler = deleteActionModelQueryHandler;
         }
 
         [HttpGet]
@@ -57,7 +62,7 @@ namespace SnippetsApi.Features.Version1.Snippets
             return this.getSingleActionModelQueryHandler
                 .Handle(
                     query: new GetSingleActionModelQuery(
-                        id: requestModel.Id))
+                        snippetId: requestModel.Id))
                 .Match<ActionResult<SnippetModel>>(
                     some: resultModel => resultModel.SnippetModel,
                     none: () => new NotFoundResult());
@@ -92,6 +97,19 @@ namespace SnippetsApi.Features.Version1.Snippets
                         content: requestModel.Content))
                 .Match<ActionResult<SnippetModel>>(
                     some: resultModel => resultModel.SnippetModel,
+                    none: () => new NotFoundResult());
+        }
+
+        [HttpDelete(template: "{id:length(24)}")]
+        public IActionResult Delete(
+            [FromRoute] DeleteRequestModel requestModel)
+        {
+            return this.deleteActionModelQueryHandler
+                .Handle(
+                    query: new DeleteActionModelQuery(
+                        snippetId: requestModel.Id))
+                .Match<ActionResult>(
+                    some: resultModel => new NoContentResult(),
                     none: () => new NotFoundResult());
         }
     }

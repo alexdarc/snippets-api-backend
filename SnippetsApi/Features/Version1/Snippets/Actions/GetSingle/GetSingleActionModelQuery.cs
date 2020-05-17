@@ -6,9 +6,9 @@ namespace SnippetsApi.Features.Version1.Snippets.Actions.GetSingle
     public class GetSingleActionModelQuery
     {
         public GetSingleActionModelQuery(
-            string id)
+            string snippetId)
         {
-            this.Id = id;
+            this.SnippetId = snippetId;
         }
 
         public interface IHandler
@@ -17,7 +17,7 @@ namespace SnippetsApi.Features.Version1.Snippets.Actions.GetSingle
                 GetSingleActionModelQuery query);
         }
 
-        public string Id { get; }
+        public string SnippetId { get; }
 
         public class Result
         {
