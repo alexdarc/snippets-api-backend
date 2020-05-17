@@ -6,19 +6,19 @@ namespace SnippetsApi.Features.Version1.Snippets.Infrastructure
     using SnippetsApi.Features.Version1.Snippets.Adapters.InfrastructureContracts;
     using SnippetsApi.Features.Version1.Snippets.Models;
 
-    public class SnippetsQueryHandler
-        : SnippetsQuery.IHandler
+    public class SnippetListQueryHandler
+        : SnippetListQuery.IHandler
     {
         private readonly ISnippetMapper snippetMapper;
 
-        public SnippetsQueryHandler(
+        public SnippetListQueryHandler(
             ISnippetMapper snippetMapper)
         {
             this.snippetMapper = snippetMapper;
         }
 
         public IEnumerable<SnippetModel> Handle(
-            SnippetsQuery query)
+            SnippetListQuery query)
         {
             return this.snippetMapper
                 .GetMany(

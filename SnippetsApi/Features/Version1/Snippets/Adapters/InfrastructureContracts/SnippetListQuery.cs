@@ -3,9 +3,9 @@ namespace SnippetsApi.Features.Version1.Snippets.Adapters.InfrastructureContract
     using System.Collections.Generic;
     using SnippetsApi.Features.Version1.Snippets.Models;
 
-    public class SnippetsQuery
+    public class SnippetListQuery
     {
-        public SnippetsQuery(
+        public SnippetListQuery(
             int limit,
             int offset)
         {
@@ -16,7 +16,7 @@ namespace SnippetsApi.Features.Version1.Snippets.Adapters.InfrastructureContract
         public interface IHandler
         {
             IEnumerable<SnippetModel> Handle(
-                SnippetsQuery query);
+                SnippetListQuery query);
         }
 
         public int Limit { get; }

@@ -7,12 +7,12 @@ namespace SnippetsApi.Features.Version1.Snippets.Adapters
     public class GetManyActionModelQueryHandler
         : GetManyActionModelQuery.IHandler
     {
-        private readonly SnippetsQuery.IHandler snippetsQueryHandler;
+        private readonly SnippetListQuery.IHandler snippetListQueryHandler;
 
         public GetManyActionModelQueryHandler(
-            SnippetsQuery.IHandler snippetsQueryHandler)
+            SnippetListQuery.IHandler snippetListQueryHandler)
         {
-            this.snippetsQueryHandler = snippetsQueryHandler;
+            this.snippetListQueryHandler = snippetListQueryHandler;
         }
 
         public Option<GetManyActionModelQuery.Result> Handle(
@@ -26,9 +26,9 @@ namespace SnippetsApi.Features.Version1.Snippets.Adapters
 
             return Option.Some(
                 value: new GetManyActionModelQuery.Result(
-                    snippetList: this.snippetsQueryHandler
+                    snippetList: this.snippetListQueryHandler
                         .Handle(
-                            query: new SnippetsQuery(
+                            query: new SnippetListQuery(
                                 limit: query.Limit,
                                 offset: query.Offset))));
         }
