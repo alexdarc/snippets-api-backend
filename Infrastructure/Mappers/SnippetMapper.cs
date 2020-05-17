@@ -3,6 +3,7 @@ namespace Infrastructure.Mappers
     using System.Collections.Generic;
     using Contracts.Models;
     using Contracts.Services;
+    using MongoDB.Bson;
     using MongoDB.Driver;
 
     public class SnippetMapper
@@ -20,7 +21,7 @@ namespace Infrastructure.Mappers
             string id)
         {
             return this.snippetsCollection
-                .Find(filter: document => document.Id.ToString() == id)
+                .Find(filter: ById(id: id))
                 .FirstOrDefault();
         }
 
@@ -47,7 +48,7 @@ namespace Infrastructure.Mappers
         {
             this.snippetsCollection
                 .ReplaceOne(
-                    filter: document => document.Id == snippet.Id,
+                    filter: ById(snippet: snippet),
                     replacement: snippet);
         }
 
@@ -56,7 +57,7 @@ namespace Infrastructure.Mappers
         {
             this.snippetsCollection
                 .DeleteOne(
-                    filter: document => document.Id.ToString() == id);
+                    filter: ById(id: id));
         }
 
         public void Remove(
@@ -64,7 +65,26 @@ namespace Infrastructure.Mappers
         {
             this.snippetsCollection
                 .DeleteOne(
-                    filter: document => document.Id == snippet.Id);
+                    filter: ById(snippet: snippet));
+        }
+
+        private static FilterDefinition<Snippet> ById(
+            string id)
+        {
+            return Builders<Snippet>.Filter
+                .Eq(
+                    field: x => x.Id,
+                    value: new ObjectId(
+                        value: id));
+        }
+
+        private static FilterDefinition<Snippet> ById(
+            Snippet snippet)
+        {
+            return Builders<Snippet>.Filter
+                .Eq(
+                    field: x => x.Id,
+                    value: snippet.Id);
         }
     }
 }
