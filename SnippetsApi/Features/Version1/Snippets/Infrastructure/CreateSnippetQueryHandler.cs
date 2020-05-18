@@ -32,7 +32,9 @@ namespace SnippetsApi.Features.Version1.Snippets.Infrastructure
             return new SnippetModel(
                 id: snippet.Id.ToString(),
                 description: snippet.Description,
-                content: snippet.Content);
+                content: snippet.Content,
+                createDate: snippet.CreatedDate,
+                lastUpdateDate: snippet.UpdatedDate);
         }
     }
 }

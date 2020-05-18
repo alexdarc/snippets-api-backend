@@ -36,7 +36,9 @@ namespace SnippetsApi.Features.Version1.Snippets.Adapters
             var snippetModel = new SnippetModel(
                 id: query.SnippetId,
                 description: query.Description,
-                content: query.Content);
+                content: query.Content,
+                createDate: snippet.CreatedDate,
+                lastUpdateDate: snippet.UpdatedDate);
             this.updateSnippetCommandHandler
                 .Handle(
                     command: new UpdateSnippetCommand(

@@ -27,7 +27,9 @@ namespace SnippetsApi.Features.Version1.Snippets.Infrastructure
                 .Select(selector: x => new SnippetModel(
                     id: x.Id.ToString(),
                     description: x.Description,
-                    content: x.Content));
+                    content: x.Content,
+                    createDate: x.CreatedDate,
+                    lastUpdateDate: x.UpdatedDate));
         }
     }
 }
