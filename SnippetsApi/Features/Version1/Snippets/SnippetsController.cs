@@ -70,7 +70,7 @@ namespace SnippetsApi.Features.Version1.Snippets
 
         [HttpPost]
         public ActionResult<SnippetModel> Create(
-            [FromQuery] CreateRequestModel requestModel)
+            [FromBody] CreateRequestModel requestModel)
         {
             return this.createActionModelQueryHandler
                 .Handle(
@@ -87,7 +87,7 @@ namespace SnippetsApi.Features.Version1.Snippets
         [HttpPut(template: "{id:length(24)}")]
         public ActionResult<SnippetModel> Update(
             [FromRoute] [ObjectId] [Required] string Id,
-            [FromQuery] UpdateRequestModel requestModel)
+            [FromBody] UpdateRequestModel requestModel)
         {
             return this.updateActionModelQueryHandler
                 .Handle(
