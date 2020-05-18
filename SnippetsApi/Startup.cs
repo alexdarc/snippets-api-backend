@@ -22,6 +22,16 @@ namespace SnippetsApi
         {
             services.AddControllers();
 
+            services.AddCors(
+                setupAction: o => o.AddPolicy(
+                    name: "AllowCors",
+                    configurePolicy: builder =>
+                    {
+                        builder.AllowAnyOrigin()
+                            .AllowAnyMethod()
+                            .AllowAnyHeader();
+                    }));
+
             IocConfig.RegisterDependencies(
                 services: services);
         }
@@ -39,6 +49,8 @@ namespace SnippetsApi
             app.UseHttpsRedirection();
 
             app.UseRouting();
+
+            app.UseCors(policyName: "AllowCors");
 
             app.UseAuthorization();
 
