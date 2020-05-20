@@ -4,8 +4,8 @@ namespace SnippetsApi.Features.Version1.Snippets
     using Microsoft.Extensions.DependencyInjection;
     using SnippetsApi.Features.Version1.Snippets.Actions.Create;
     using SnippetsApi.Features.Version1.Snippets.Actions.Delete;
-    using SnippetsApi.Features.Version1.Snippets.Actions.Get;
     using SnippetsApi.Features.Version1.Snippets.Actions.GetSingle;
+    using SnippetsApi.Features.Version1.Snippets.Actions.List;
     using SnippetsApi.Features.Version1.Snippets.Actions.Update;
     using SnippetsApi.Features.Version1.Snippets.Adapters;
     using SnippetsApi.Features.Version1.Snippets.Infrastructure;
@@ -16,8 +16,8 @@ namespace SnippetsApi.Features.Version1.Snippets
             IServiceCollection services,
             ISnippetMapper snippetMapper)
         {
-            services.AddSingleton<GetManyActionModelQuery.IHandler>(
-                implementationInstance: new GetManyActionModelQueryHandler(
+            services.AddSingleton<ListActionModelQuery.IHandler>(
+                implementationInstance: new ListActionModelQueryHandler(
                     snippetListQueryHandler: new SnippetListQueryHandler(
                         snippetMapper: snippetMapper)));
 

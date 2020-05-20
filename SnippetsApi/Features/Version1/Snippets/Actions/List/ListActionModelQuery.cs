@@ -1,18 +1,16 @@
-namespace SnippetsApi.Features.Version1.Snippets.Actions.Get
+namespace SnippetsApi.Features.Version1.Snippets.Actions.List
 {
     using System.Collections.Generic;
     using Microsoft.AspNetCore.Mvc.ModelBinding;
     using Optional;
     using SnippetsApi.Features.Version1.Snippets.Models;
 
-    public class GetManyActionModelQuery
+    public class ListActionModelQuery
     {
-        public GetManyActionModelQuery(
-            ModelStateDictionary modelState,
+        public ListActionModelQuery(
             int limit,
             int offset)
         {
-            this.ModelState = modelState;
             this.Limit = limit;
             this.Offset = offset;
         }
@@ -20,10 +18,8 @@ namespace SnippetsApi.Features.Version1.Snippets.Actions.Get
         public interface IHandler
         {
             Option<Result> Handle(
-                GetManyActionModelQuery query);
+                ListActionModelQuery query);
         }
-
-        public ModelStateDictionary ModelState { get; }
 
         public int Limit { get; }
 

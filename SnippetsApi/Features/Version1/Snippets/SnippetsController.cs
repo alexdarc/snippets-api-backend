@@ -7,15 +7,15 @@ namespace SnippetsApi.Features.Version1.Snippets
     using Microsoft.AspNetCore.Mvc;
     using SnippetsApi.Features.Version1.Snippets.Actions.Create;
     using SnippetsApi.Features.Version1.Snippets.Actions.Delete;
-    using SnippetsApi.Features.Version1.Snippets.Actions.Get;
     using SnippetsApi.Features.Version1.Snippets.Actions.GetSingle;
+    using SnippetsApi.Features.Version1.Snippets.Actions.List;
     using SnippetsApi.Features.Version1.Snippets.Actions.Update;
     using SnippetsApi.Features.Version1.Snippets.Models;
 
     public class SnippetsController
         : ApiVersion1Controller
     {
-        private readonly GetManyActionModelQuery.IHandler getManyActionModelQueryHandler;
+        private readonly ListActionModelQuery.IHandler listActionModelQueryHandler;
 
         private readonly CreateActionModelQuery.IHandler createActionModelQueryHandler;
 
@@ -26,13 +26,13 @@ namespace SnippetsApi.Features.Version1.Snippets
         private readonly DeleteActionModelQuery.IHandler deleteActionModelQueryHandler;
 
         public SnippetsController(
-            GetManyActionModelQuery.IHandler getManyActionModelQueryHandler,
+            ListActionModelQuery.IHandler listActionModelQueryHandler,
             CreateActionModelQuery.IHandler createActionModelQueryHandler,
             GetSingleActionModelQuery.IHandler getSingleActionModelQueryHandler,
             UpdateActionModelQuery.IHandler updateActionModelQueryHandler,
             DeleteActionModelQuery.IHandler deleteActionModelQueryHandler)
         {
-            this.getManyActionModelQueryHandler = getManyActionModelQueryHandler;
+            this.listActionModelQueryHandler = listActionModelQueryHandler;
             this.createActionModelQueryHandler = createActionModelQueryHandler;
             this.getSingleActionModelQueryHandler = getSingleActionModelQueryHandler;
             this.updateActionModelQueryHandler = updateActionModelQueryHandler;
@@ -40,13 +40,12 @@ namespace SnippetsApi.Features.Version1.Snippets
         }
 
         [HttpGet]
-        public ActionResult<List<SnippetModel>> GetMany(
-            [FromQuery] GetManyRequestModel requestModel)
+        public ActionResult<List<SnippetModel>> List(
+            [FromQuery] ListRequestModel requestModel)
         {
-            return this.getManyActionModelQueryHandler
+            return this.listActionModelQueryHandler
                 .Handle(
-                    query: new GetManyActionModelQuery(
-                        modelState: this.ModelState,
+                    query: new ListActionModelQuery(
                         limit: requestModel.Limit,
                         offset: requestModel.Offset))
                 .Match<ActionResult<List<SnippetModel>>>(
