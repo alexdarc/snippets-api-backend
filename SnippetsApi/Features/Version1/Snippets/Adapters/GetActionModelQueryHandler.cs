@@ -5,19 +5,19 @@ namespace SnippetsApi.Features.Version1.Snippets.Adapters
     using SnippetsApi.Features.Version1.Snippets.Adapters.InfrastructureContracts;
     using SnippetsApi.Features.Version1.Snippets.Models;
 
-    public class GetSingleActionModelQueryHandler
-        : GetSingleActionModelQuery.IHandler
+    public class GetActionModelQueryHandler
+        : GetActionModelQuery.IHandler
     {
         private readonly SnippetQuery.IHandler snippetQueryHandler;
 
-        public GetSingleActionModelQueryHandler(
+        public GetActionModelQueryHandler(
             SnippetQuery.IHandler snippetQueryHandler)
         {
             this.snippetQueryHandler = snippetQueryHandler;
         }
 
-        public Option<GetSingleActionModelQuery.Result> Handle(
-            GetSingleActionModelQuery query)
+        public Option<GetActionModelQuery.Result> Handle(
+            GetActionModelQuery query)
         {
             var snippet = this.snippetQueryHandler
                 .Handle(
@@ -26,11 +26,11 @@ namespace SnippetsApi.Features.Version1.Snippets.Adapters
 
             if (snippet == null)
             {
-                return Option.None<GetSingleActionModelQuery.Result>();
+                return Option.None<GetActionModelQuery.Result>();
             }
 
             return Option.Some(
-                value: new GetSingleActionModelQuery.Result(
+                value: new GetActionModelQuery.Result(
                     snippetModel: new SnippetModel(
                         id: snippet.Id.ToString(),
                         description: snippet.Description,

@@ -19,7 +19,7 @@ namespace SnippetsApi.Features.Version1.Snippets
 
         private readonly CreateActionModelQuery.IHandler createActionModelQueryHandler;
 
-        private readonly GetSingleActionModelQuery.IHandler getSingleActionModelQueryHandler;
+        private readonly GetActionModelQuery.IHandler getActionModelQueryHandler;
 
         private readonly UpdateActionModelQuery.IHandler updateActionModelQueryHandler;
 
@@ -28,13 +28,13 @@ namespace SnippetsApi.Features.Version1.Snippets
         public SnippetsController(
             ListActionModelQuery.IHandler listActionModelQueryHandler,
             CreateActionModelQuery.IHandler createActionModelQueryHandler,
-            GetSingleActionModelQuery.IHandler getSingleActionModelQueryHandler,
+            GetActionModelQuery.IHandler getActionModelQueryHandler,
             UpdateActionModelQuery.IHandler updateActionModelQueryHandler,
             DeleteActionModelQuery.IHandler deleteActionModelQueryHandler)
         {
             this.listActionModelQueryHandler = listActionModelQueryHandler;
             this.createActionModelQueryHandler = createActionModelQueryHandler;
-            this.getSingleActionModelQueryHandler = getSingleActionModelQueryHandler;
+            this.getActionModelQueryHandler = getActionModelQueryHandler;
             this.updateActionModelQueryHandler = updateActionModelQueryHandler;
             this.deleteActionModelQueryHandler = deleteActionModelQueryHandler;
         }
@@ -55,12 +55,12 @@ namespace SnippetsApi.Features.Version1.Snippets
         }
 
         [HttpGet(template: "{id:length(24)}")]
-        public ActionResult<SnippetModel> GetSingle(
-            [FromRoute] GetSingleRequestModel requestModel)
+        public ActionResult<SnippetModel> Get(
+            [FromRoute] GetRequestModel requestModel)
         {
-            return this.getSingleActionModelQueryHandler
+            return this.getActionModelQueryHandler
                 .Handle(
-                    query: new GetSingleActionModelQuery(
+                    query: new GetActionModelQuery(
                         snippetId: requestModel.Id))
                 .Match<ActionResult<SnippetModel>>(
                     some: resultModel => resultModel.SnippetModel,

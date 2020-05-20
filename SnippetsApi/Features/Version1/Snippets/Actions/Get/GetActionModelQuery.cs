@@ -3,9 +3,9 @@ namespace SnippetsApi.Features.Version1.Snippets.Actions.GetSingle
     using Optional;
     using SnippetsApi.Features.Version1.Snippets.Models;
 
-    public class GetSingleActionModelQuery
+    public class GetActionModelQuery
     {
-        public GetSingleActionModelQuery(
+        public GetActionModelQuery(
             string snippetId)
         {
             this.SnippetId = snippetId;
@@ -14,7 +14,7 @@ namespace SnippetsApi.Features.Version1.Snippets.Actions.GetSingle
         public interface IHandler
         {
             Option<Result> Handle(
-                GetSingleActionModelQuery query);
+                GetActionModelQuery query);
         }
 
         public string SnippetId { get; }

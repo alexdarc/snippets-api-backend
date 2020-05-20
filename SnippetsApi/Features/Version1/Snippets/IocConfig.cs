@@ -29,8 +29,8 @@ namespace SnippetsApi.Features.Version1.Snippets
             var snippetQueryHandler = new SnippetQueryHandler(
                 snippetMapper: snippetMapper);
 
-            services.AddSingleton<GetSingleActionModelQuery.IHandler>(
-                implementationInstance: new GetSingleActionModelQueryHandler(
+            services.AddSingleton<GetActionModelQuery.IHandler>(
+                implementationInstance: new GetActionModelQueryHandler(
                     snippetQueryHandler: snippetQueryHandler));
 
             services.AddSingleton<UpdateActionModelQuery.IHandler>(
