@@ -7,11 +7,9 @@ namespace SnippetsApi.Features.Version1.Snippets.Actions.Create
     public class CreateActionModelQuery
     {
         public CreateActionModelQuery(
-            ModelStateDictionary modelState,
             string description,
             string content)
         {
-            this.ModelState = modelState;
             this.Description = description;
             this.Content = content;
         }
@@ -21,8 +19,6 @@ namespace SnippetsApi.Features.Version1.Snippets.Actions.Create
             Option<Result> Handle(
                 CreateActionModelQuery query);
         }
-
-        public ModelStateDictionary ModelState { get; }
 
         public string Description { get; }
 

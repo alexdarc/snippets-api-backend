@@ -74,7 +74,6 @@ namespace SnippetsApi.Features.Version1.Snippets
             return this.createActionModelQueryHandler
                 .Handle(
                     query: new CreateActionModelQuery(
-                        modelState: this.ModelState,
                         description: requestModel.Description,
                         content: requestModel.Content))
                 .Match<ActionResult<SnippetModel>>(
